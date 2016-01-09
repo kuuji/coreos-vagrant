@@ -1,0 +1,17 @@
+[Unit]
+Description=Browser Etcd
+After=docker.service
+Requires=docker.service
+
+[Service]
+User=core
+TimeoutStartSec=0
+ExecStartPre=-/usr/bin/docker kill etcd-browser
+ExecStartPre=-/usr/bin/docker rm etcd-browser
+ExecStartPre=-/usr/bin/docker pull hub-docker.norsys.fr/forge-lmep/souscription
+ExecStart=/usr/bin/docker run --name etcd-browser -p 0.0.0.0:8000:8000 --env ETCD_HOST=10.0.2.15 --env AUTH_PASS=password etcd-browser
+ExecStop=/usr/bin/docker stop etcd-browser
+ExecStopPost=-/usr/bin/docker rmi etcd-browser
+
+[Install]
+WantedBy=multi-user.target
