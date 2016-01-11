@@ -1,5 +1,5 @@
 # Size of the CoreOS cluster created by Vagrant
-$num_instances=5
+$num_instances=6
 
 # Used to fetch a new discovery token for a cluster of size $num_instances
 $new_discovery_url="https://discovery.etcd.io/new?size=#{$num_instances}"

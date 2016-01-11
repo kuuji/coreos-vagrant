@@ -1,0 +1,16 @@
+[Unit]
+Description=Spaceship
+After=docker.service
+Requires=docker.service
+
+[Service]
+User=core
+TimeoutStartSec=0
+ExecStartPre=-/usr/bin/docker kill ship%i
+ExecStartPre=-/usr/bin/docker rm ship%i
+ExecStartPre=-/usr/bin/docker pull nginx
+ExecStart=/usr/bin/docker run --name=ship%i nginx
+ExecStop=/usr/bin/docker stop ship%i
+
+[Install]
+WantedBy=multi-user.target
