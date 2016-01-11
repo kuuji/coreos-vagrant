@@ -22,7 +22,7 @@ $vm_memory = 1024
 $vm_cpus = 1
 $shared_folders = {}
 $forwarded_ports = {}
-
+$planet_name = [["tatooine"],["kamino"],["coruscant"],["naboo"],["alderaan"],["hoth"]]
 # Attempt to apply the deprecated environment variable NUM_INSTANCES to
 # $num_instances while allowing config.rb to override it
 if ENV["NUM_INSTANCES"].to_i > 0 && ENV["NUM_INSTANCES"]
@@ -137,6 +137,8 @@ Vagrant.configure("2") do |config|
 
       if File.exist?(CLOUD_CONFIG_PATH)
         config.vm.provision :file, :source => "#{CLOUD_CONFIG_PATH}", :destination => "/tmp/vagrantfile-user-data"
+	      sed = "sed -i.bak 's/metadata.*$/metadata:\ \"planet=%s\"/g' /tmp/vagrantfile-user-data" % $planet_name[i]
+	      config.vm.provision :shell, :inline => sed, :privileged => true
         config.vm.provision :shell, :inline => "mv /tmp/vagrantfile-user-data /var/lib/coreos-vagrant/", :privileged => true
       end
 
