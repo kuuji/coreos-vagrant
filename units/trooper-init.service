@@ -1,0 +1,13 @@
+[Unit]
+Description=Trooper init
+After=docker.service
+Requires=docker.service
+
+[Service]
+User=core
+TimeoutStartSec=0
+Type=oneshot
+ExecStart=/usr/bin/docker pull kuuji/lighthttpd-trooper
+
+[X-Fleet]
+Global=true

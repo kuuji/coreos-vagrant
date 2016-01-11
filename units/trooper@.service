@@ -1,0 +1,15 @@
+[Unit]
+Description=Trooper
+After=docker.service
+Requires=docker.service
+
+[Service]
+User=core
+TimeoutStartSec=0
+ExecStartPre=-/usr/bin/docker kill trooper%i
+ExecStartPre=-/usr/bin/docker rm trooper%i
+ExecStart=/usr/bin/docker run --name=trooper%i -p 590%i:80 -e "TROOPER=matricule #%i" kuuji/lighthttpd-trooper
+ExecStop=/usr/bin/docker kill trooper%i
+
+[Install]
+WantedBy=multi-user.target

@@ -1,0 +1,11 @@
+[Unit]
+Description=Announce trooper
+BindsTo=trooper@%i.service
+After=trooper@%i.service
+
+[Service]
+ExecStart=/bin/sh -c "while true; do etcdctl set /services/troopers/trooper@%i.services '{ \"ID_Machine\": \"%m\", \"port\": 380%i }' --ttl 60;sleep 45;done"
+ExecStop=/usr/bin/etcdctl rm /services/troopers/trooper@%i
+
+[X-Fleet]
+MachineOf=trooper@%i.service
