@@ -7,7 +7,7 @@ coreos:
     initial-advertise-peer-urls: http://$private_ipv4:2380
     listen-client-urls: http://0.0.0.0:2379,http://0.0.0.0:4001
     listen-peer-urls: http://$private_ipv4:2380,http://$private_ipv4:7001
-    discovery: https://discovery.etcd.io/408c2f1ff764ae97b38a3e3b8251728e
+    discovery: https://discovery.etcd.io/2008788a0cca4d5ae90b090d62efabb5
   fleet:
     public-ip: $public_ipv4
     metadata: planet=kamino
